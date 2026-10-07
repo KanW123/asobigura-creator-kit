@@ -1,0 +1,33 @@
+{
+  "name": "asobigura-creator-cli",
+  "version": "0.1.0-rc.1",
+  "description": "CLI to publish and monetize browser games on GamePlatform — deploy, set pricing, connect Stripe payouts, and check earnings from the terminal (AI-assistant friendly).",
+  "type": "module",
+  "bin": {
+    "gameplatform": "bin/gameplatform.js"
+  },
+  "files": [
+    "bin/",
+    "src/",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "keywords": [
+    "gameplatform",
+    "games",
+    "cli",
+    "publish",
+    "stripe",
+    "indie"
+  ],
+  "homepage": "https://asobigura.com/developers",
+  "license": "MIT",
+  "dependencies": {
+    "commander": "12.1.0",
+    "fflate": "0.8.3",
+    "open": "10.2.0"
+  },
+  "private": true
+}

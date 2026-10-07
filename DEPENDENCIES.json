@@ -1,0 +1,62 @@
+[
+  {
+    "name": "bundle-name",
+    "version": "4.1.1",
+    "license": "MIT"
+  },
+  {
+    "name": "commander",
+    "version": "12.1.0",
+    "license": "MIT"
+  },
+  {
+    "name": "default-browser",
+    "version": "5.5.1",
+    "license": "MIT"
+  },
+  {
+    "name": "default-browser-id",
+    "version": "5.0.1",
+    "license": "MIT"
+  },
+  {
+    "name": "define-lazy-prop",
+    "version": "3.0.0",
+    "license": "MIT"
+  },
+  {
+    "name": "fflate",
+    "version": "0.8.3",
+    "license": "MIT"
+  },
+  {
+    "name": "is-docker",
+    "version": "3.0.0",
+    "license": "MIT"
+  },
+  {
+    "name": "is-inside-container",
+    "version": "1.0.0",
+    "license": "MIT"
+  },
+  {
+    "name": "is-wsl",
+    "version": "3.1.1",
+    "license": "MIT"
+  },
+  {
+    "name": "open",
+    "version": "10.2.0",
+    "license": "MIT"
+  },
+  {
+    "name": "run-applescript",
+    "version": "7.1.0",
+    "license": "MIT"
+  },
+  {
+    "name": "wsl-utils",
+    "version": "0.1.0",
+    "license": "MIT"
+  }
+]
