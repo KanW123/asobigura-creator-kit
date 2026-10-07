@@ -1,0 +1,35 @@
+name: Check release candidate
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  check:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '24'
+      - run: npm ci --prefix cli --ignore-scripts
+      - run: npm ci --prefix sdk --ignore-scripts
+      - run: npm audit --prefix cli --omit=dev
+      - run: npm audit --prefix sdk
+      - run: npm run build --prefix sdk
+      - run: node --test test/*.test.mjs
+      - run: node scripts/build.mjs
+      - run: node scripts/smoke.mjs
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: candidate-${{ matrix.os }}
+          path: dist/*
+          if-no-files-found: error

@@ -1,0 +1,52 @@
+name: Build attested release assets
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  test:
+    strategy:
+      matrix:
+        os: [windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24'
+      - run: npm ci --prefix cli --ignore-scripts
+      - run: npm ci --prefix sdk --ignore-scripts
+      - run: npm audit --prefix cli --omit=dev
+      - run: npm audit --prefix sdk
+      - run: npm run build --prefix sdk
+      - run: node --test test/*.test.mjs
+      - run: node scripts/build.mjs
+      - run: node scripts/smoke.mjs
+  attest:
+    needs: test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+      attestations: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24'
+      - run: npm ci --prefix cli --ignore-scripts
+      - run: npm ci --prefix sdk --ignore-scripts
+      - run: npm run build --prefix sdk
+      - run: node scripts/build.mjs
+      - run: node scripts/smoke.mjs
+      - uses: actions/attest@1e69f48acb82d1966a394da916b4c1698aa569d6 # v4
+        with:
+          subject-path: dist/*.zip
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: attested-release
+          path: dist/*
+          if-no-files-found: error
