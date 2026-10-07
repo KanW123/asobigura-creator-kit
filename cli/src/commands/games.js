@@ -16,6 +16,10 @@ export async function gamesCommand() {
     console.log(
       `  ${(g.id || '').padEnd(25)} ${(g.title || '').padEnd(25)} ${('v' + (g.current_version || '?')).padEnd(10)} ${status.padEnd(12)} ${g.genre || ''}`
     );
+    if (g.publish_at) {
+      const at = new Date(g.publish_at).toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo', dateStyle: 'medium', timeStyle: 'short' });
+      console.log(`  ${''.padEnd(25)} └ 予約公開: ${at}（日本時間）`);
+    }
   }
   console.log();
 }

@@ -7,6 +7,7 @@ import { loginCommand } from '../src/commands/login.js';
 import { deployCommand } from '../src/commands/deploy.js';
 import { updateCommand } from '../src/commands/update.js';
 import { promoteCommand } from '../src/commands/promote.js';
+import { scheduleCommand } from '../src/commands/schedule.js';
 import { gamesCommand } from '../src/commands/games.js';
 import { statusCommand } from '../src/commands/status.js';
 import { logoutCommand } from '../src/commands/logout.js';
@@ -88,6 +89,13 @@ program
   .option('--expect <version>', 'The staged version you actually verified (publishes only if it still matches)')
   .option('--confirmed', 'Confirm the pre-release checklist (required to publish)')
   .action(promoteCommand);
+
+program
+  .command('schedule <game-id> [time]')
+  .description('Schedule a draft to go public at a time (e.g. "2026-10-08 18:00" = JST), or --cancel')
+  .option('--confirmed', 'Confirm the pre-release checklist (required to schedule)')
+  .option('--cancel', 'Cancel the schedule (the game stays a draft)')
+  .action(scheduleCommand);
 
 program
   .command('connect')

@@ -1,6 +1,6 @@
 {
   "name": "asobigura-creator-cli",
-  "version": "0.1.0-rc.1",
+  "version": "0.1.0-rc.2",
   "description": "CLI to publish and monetize browser games on GamePlatform — deploy, set pricing, connect Stripe payouts, and check earnings from the terminal (AI-assistant friendly).",
   "type": "module",
   "bin": {
